@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Weather App</title>
+</head>
+
+<body>
+
+    <div class="card">
+        <nav>
+            <input type="text" placeholder="enter city name" spellcheck="false">
+            <button><i class="fa-solid fa-magnifying-glass"></i></button>
+        </nav>
+        <div class="empty">Don't let it empty!!</div>
+        <div class="error"> Invalid City Name</div>
+        <div class="weather">
+            <div class="weather-icon">
+                <div class="icons">
+
+                    <div class="clear">
+                        <i class="fa-solid fa-sun sunny"></i>
+                    </div>
+
+                    <!-- for clouds -->
+                    <div class="cloudy">
+                        <i class="fa-solid fa-sun cloudy-sun"></i>
+                        <i class="fa-solid fa-cloud cloud1"></i>
+                        <i class="fa-solid fa-cloud cloud2"></i>
+                        <i class="fa-solid fa-cloud cloud3"></i>
+                    </div>
+
+                    <!-- for rain -->
+                    <div class="rainning">
+                        <i class="fa-solid fa-cloud  rainy-cloud"></i>
+                        <i class="fa-solid fa-droplet rain1 display-none"></i> <i
+                            class="fa-solid fa-droplet rain2 display-none"></i>
+                        <i class="fa-solid fa-droplet rain3 display-none"></i>
+                        <i class="fa-solid fa-droplet rain4 display-none"></i>
+                        <i class="fa-solid fa-droplet rain5 display-none"></i>
+                        <i class="fa-solid fa-droplet rain6 display-none"></i>
+                    </div>
+
+                    <!-- for snow -->
+                    <div class="snowing">
+                        <i class="fa-solid fa-cloud  rainy-cloud"></i>
+                        <i class="fa-regular fa-snowflake snow1 display-none"></i>
+                        <i class="fa-regular fa-snowflake snow2 display-none"></i>
+                        <i class="fa-regular fa-snowflake snow3 display-none"></i>
+                        <i class="fa-regular fa-snowflake snow4 display-none"></i>
+                        <i class="fa-regular fa-snowflake snow5 display-none"></i>
+                    </div>
+
+                    <!-- drizzle rain -->
+                    <div class="drizzly">
+                        <i class="fa-solid fa-sun cloudy-sun"></i>
+                        <i class="fa-solid fa-cloud dri-cloud "></i>
+                        <span class="dri d1"></span>
+                        <span class="dri d2"></span>
+                        <span class="dri d3"></span>
+                        <span class="dri d4"></span>
+                        <span class="dri d5"></span>
+                        <span class="dri d6"></span>
+                        <span class="dri d7"></span>
+                        <span class="dri d8"></span>
+                        <span class="dri d9"></span>
+                        <span class="dri d10"></span>
+                    </div>
+                </div>
+            </div>
+            <h1 class="temp">20°C</h1>
+            <h2 class="city">London - UK</h2>
+            <div class="details">
+                <div class="col">
+                    <img src="images/humidity.png">
+                    <div>
+                        <p class="humidity">31%</p>
+                        <p>Humidity</p>
+                    </div>
+                </div>
+                <div class="col">
+                    <i class="fa-solid fa-wind"></i>
+                    <div>
+                        <p class="wind">10 Km/h</p>
+                        <p>Wind Speed</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        const apiKey = "b47c3a60f9ecc198ac28599bfe2e5640";
+        const apiUrl = "https://api.openweathermap.org/data/2.5/weather?&units=metric&q="
+
+        const searchBox = document.querySelector("nav input")
+        const searchBtn = document.querySelector("nav button")
+        const weatherIcon = document.querySelector(".weather-icon")
+
+
+
+        async function checkWeather(city) {
+            const response = await fetch(apiUrl + city + `&appid=${apiKey}`)
+
+
+            if (searchBox.value === "") {
+                document.querySelector(".empty").style.display = "block"
+                document.querySelector(".error").style.display = "none";
+                document.querySelector(".weather").style.display = "none";
+            } else if (response.status == 404) {
+                document.querySelector(".error").style.display = "block";
+                document.querySelector(".weather").style.display = "none";
+                document.querySelector(".empty").style.display = "none"
+            } else {
+
+                document.querySelector(".weather").style.display = "block"
+                document.querySelector(".error").style.display = "none";
+                document.querySelector(".empty").style.display = "none"
+
+
+                var data = await response.json();
+                console.log(data)
+
+                // to change the data in tha app using API keys
+                document.querySelector(".city").innerHTML = data.name + " - " + data.sys.country;
+                document.querySelector(".temp").innerHTML = `${Math.round(data.main.temp)}°C`;
+                document.querySelector(".humidity").innerHTML = `${Math.round(data.main.humidity)}%`;
+                document.querySelector(".wind").innerHTML = `${Math.round(data.wind.speed)} Km/h`;
+
+                // weather icon manipulation
+                // ---------------------------------------------------------------------------------------
+                function getWeatherCondition() {
+                    // Replace this with your actual API call logic
+                    // For now, let's return a random condition
+                    const conditions = ['clear', 'cloudy', 'raining', 'snowing', 'drizzly'];
+                    return conditions[Math.floor(Math.random() * conditions.length)];
+                }
+
+                function updateWeatherDisplay() {
+                    const condition = getWeatherCondition();
+                    const allDivs = document.querySelectorAll('.weather-div');
+
+                    // Hide all divs
+                    allDivs.forEach(div => {
+                        div.style.display = 'none';
+                    });
+
+                    // Show the specific div based on the condition
+                    document.querySelector(`.${condition}`).style.display = 'block';
+                }
+
+
+
+                //-----------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+                if (data.weather[0].main === 'Clouds') {
+
+                    document.querySelector(".clear").style.display = "none"
+                    document.querySelector(".rainning").style.display = "none"
+                    document.querySelector(".snowing").style.display = "none"
+                    document.querySelector(".drizzly").style.display = "none"
+                    document.querySelector(".cloudy").style.display = "block"
+
+                } else if (data.weather[0].main === 'Clear') {
+
+                    document.querySelector(".rainning").style.display = "none"
+                    document.querySelector(".snowing").style.display = "none"
+                    document.querySelector(".drizzly").style.display = "none"
+                    document.querySelector(".cloudy").style.display = "none"
+                    document.querySelector(".clear").style.display = "block"
+
+
+                } else if (data.weather[0].main === 'Rain') {
+
+
+                    document.querySelector(".clear").style.display = "none"
+                    document.querySelector(".snowing").style.display = "none"
+                    document.querySelector(".drizzly").style.display = "none"
+                    document.querySelector(".cloudy").style.display = "none"
+                    document.querySelector(".rainning").style.display = "block"
+
+
+
+
+                } else if (data.weather[0].main === 'Drizzle') {
+
+                    document.querySelector(".clear").style.display = "none"
+                    document.querySelector(".rainning").style.display = "none"
+                    document.querySelector(".snowing").style.display = "none"
+                    document.querySelector(".cloudy").style.display = "none"
+                    document.querySelector(".drizzly").style.display = "block"
+
+                } else if (data.weather[0].main === 'Mist') {
+
+                    document.querySelector(".clear").style.display = "none"
+                    document.querySelector(".rainning").style.display = "none"
+                    document.querySelector(".snowing").style.display = "none"
+                    document.querySelector(".drizzly").style.display = "none"
+                    document.querySelector(".cloudy").style.display = "block"
+
+                } else if (data.weather[0].main === 'Snow') {
+                    document.querySelector(".clear").style.display = "none"
+                    document.querySelector(".rainning").style.display = "none"
+                    document.querySelector(".drizzly").style.display = "none"
+                    document.querySelector(".cloudy").style.display = "none"
+                    document.querySelector(".snowing").style.display = "block"
+
+
+                }
+
+            }
+        }
+
+        // events of click Enter Or Button
+        function searchValue() {
+            checkWeather(searchBox.value)
+        }
+        searchBtn.addEventListener("click", searchValue)
+        searchBox.addEventListener("keydown", function (event) {
+            if (event.key === "Enter") {
+                searchValue()
+            }
+        })
+    </script>
+</body>
+
+</html>

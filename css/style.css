@@ -1,0 +1,448 @@
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  background-color: #222;
+}
+.card {
+  width: 90%;
+  max-width: 470px;
+  background: linear-gradient(135deg, #00feba, #5b548a);
+  color: #fff;
+  margin: 100px auto 30px;
+  border-radius: 20px;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  -ms-border-radius: 20px;
+  -o-border-radius: 20px;
+  padding: 40px 35px;
+  text-align: center;
+}
+
+nav {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+nav input {
+  border: 0;
+  outline: 0;
+  background: #ebfffc;
+  color: #555;
+  padding: 10px 25px;
+  height: 60px;
+  border-radius: 30px;
+  -webkit-border-radius: 30px;
+  -moz-border-radius: 30px;
+  -ms-border-radius: 30px;
+  -o-border-radius: 30px;
+  flex: 1;
+  margin-right: 16px;
+  font-size: 18px;
+}
+
+nav button {
+  background: transparent;
+  outline: 0;
+  border: 0;
+  width: 60px;
+  height: 60px;
+  cursor: pointer;
+  border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
+}
+
+nav button:hover {
+  background: linear-gradient(-94deg, #00feba, #5b548a);
+  box-shadow: 0px 0px 5px 3px #0b4685;
+}
+
+nav button i {
+  font-size: 30px;
+  color: #333;
+}
+
+.weather-icon {
+  width: 170px;
+  margin-left: 113px;
+  margin-top: 30px;
+  display: flex;
+  justify-content: center;
+}
+
+.icons {
+  position: relative;
+}
+
+.clear {
+  position: inherit;
+  display: none;
+}
+/* if the weather is clear */
+.sunny {
+  position: absolute;
+  top: -5px;
+  font-size: 92px;
+  color: #eeff00;
+  left: -42px;
+}
+
+/* if the weather is cloudy */
+.cloudy {
+  position: inherit;
+  display: none;
+}
+.cloudy-sun {
+  position: absolute;
+  font-size: 60px;
+  color: #eeff00;
+  margin-top: -10px;
+  margin-left: -45px;
+  z-index: 0;
+}
+.cloud1 {
+  position: absolute;
+  font-size: 54px;
+  z-index: 2;
+  color: #8d8dd8;
+  left: -101px;
+  top: 24px;
+  animation-name: cloudy1;
+  -webkit-animation-name: cloudy1;
+  animation-duration: 10s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+.cloud2 {
+  position: absolute;
+  font-size: 54px;
+  z-index: 2;
+  color: #6262e2;
+  left: -18px;
+  top: 5px;
+  animation-name: cloudy2;
+  -webkit-animation-name: cloudy2;
+  animation-duration: 10s;
+  animation-delay: 0s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+.cloud3 {
+  position: absolute;
+  font-size: 54px;
+  z-index: 2;
+  color: #7070af;
+  left: 21px;
+  top: 24px;
+  animation-name: cloudy3;
+  -webkit-animation-name: cloudy3;
+  animation-duration: 10s;
+  animation-delay: 0.5s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+@keyframes cloudy1 {
+  100% {
+    left: -32px;
+  }
+}
+@keyframes cloudy2 {
+  100% {
+    left: 6px;
+  }
+}
+@keyframes cloudy3 {
+  100% {
+    left: -80px;
+  }
+}
+
+/* Making Rainny Weather */
+
+.rainning {
+  position: inherit;
+  display: none;
+}
+.rainy-cloud {
+  font-size: 92px;
+  position: absolute;
+  color: #4b4b9d;
+  top: -15px;
+  left: -50px;
+  z-index: 1;
+}
+.rain1,
+.rain2,
+.rain3,
+.rain4,
+.rain5,
+.rain6 {
+  z-index: 0;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  top: 61px;
+  color: #4a7ae2;
+  animation-name: rain;
+  animation-duration: 1.4s;
+  animation-direction: normal;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+.rain1 {
+  left: -34px;
+}
+.rain2 {
+  left: -15px;
+  animation-delay: 0.2s;
+}
+.rain3 {
+  left: 10px;
+  animation-delay: 0.5s;
+}
+.rain4 {
+  animation-delay: 0.7s;
+  left: 30px;
+}
+.rain5 {
+  animation-delay: 0s;
+  left: 40px;
+}
+
+@keyframes rain {
+  100% {
+    top: 106px;
+  }
+}
+
+/* for Snowing weather */
+.snowing {
+  position: inherit;
+  display: none;
+}
+.snow1,
+.snow2,
+.snow3,
+.snow4,
+.snow5 {
+  position: absolute;
+  top: 55px;
+  z-index: 0;
+  color: #bebeeb;
+  animation-name: snow;
+  animation-duration: 1s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+.snow1 {
+  left: -37px;
+}
+.snow2 {
+  left: 17px;
+  animation-delay: 0.2s;
+}
+.snow3 {
+  left: -17px;
+  animation-delay: 0.5s;
+}
+.snow4 {
+  left: 37px;
+  animation-delay: 0.8s;
+}
+.snow5 {
+  left: 0px;
+  animation-delay: 1s;
+}
+@keyframes snow {
+  100% {
+    top: 106px;
+  }
+}
+
+/*     For Drizzle Weather     */
+
+.drizzly {
+  position: inherit;
+  display: none;
+}
+.dri-cloud {
+  position: absolute;
+  z-index: 1;
+  font-size: 77px;
+  color: #4b4b9d;
+  left: -20px;
+}
+.dri {
+  position: absolute;
+  width: 3px;
+  height: 6px;
+  z-index: 0;
+  background-color: #4a7ae2;
+  top: 66px;
+  transform: rotate(4deg);
+  -webkit-transform: rotate(4deg);
+  -moz-transform: rotate(4deg);
+  -ms-transform: rotate(4deg);
+  -o-transform: rotate(4deg);
+  animation-name: drizzle;
+  animation-duration: 1s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+.d6,
+.d7,
+.d8,
+.d9,
+.d10 {
+  animation-delay: 0.4s;
+}
+.d2,
+.d6 {
+  left: 13px;
+}
+.d3,
+.d7 {
+  left: 25px;
+}
+.d4,
+.d8 {
+  left: 38px;
+}
+.d5,
+.d10 {
+  left: 55px;
+}
+
+@keyframes drizzle {
+  100% {
+    transform: translate(-4px, 40px);
+    -webkit-transform: translate(-4px, 40px);
+    -moz-transform: translate(-4px, 40px);
+    -ms-transform: translate(-4px, 40px);
+    -o-transform: translate(-4px, 40px);
+  }
+}
+
+/* End of Weather Icon */
+/* ---------------------------------------------------------------------- */
+.weather h1 {
+  font-size: 80px;
+  font-weight: 500;
+  margin-top: 123px;
+}
+.weather h2 {
+  font-size: 45px;
+  font-weight: 400;
+  margin-top: -10px;
+}
+
+.details {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  margin-top: 50px;
+}
+
+.col {
+  display: flex;
+  align-items: center;
+  text-align: left;
+}
+
+.col img {
+  width: 40px;
+  margin-right: 10px;
+}
+.col i {
+  font-size: 40px;
+  margin-right: 10px;
+}
+
+.humidity,
+.wind {
+  font-size: 28px;
+  margin-top: -6px;
+}
+
+.empty {
+  margin-top: 24px;
+  font-size: 16px;
+  display: none;
+}
+.weather {
+  display: none;
+}
+
+.error {
+  margin-top: 25px;
+  font-size: 16px;
+  display: none;
+}
+
+@media (max-width: 647px) {
+  .card {
+    margin: 32px auto 23px;
+    padding: 40px 12px;
+  }
+
+  nav input {
+    padding: 7px 15px;
+    height: 48px;
+    font-size: 14px;
+    margin-right: 7px;
+    text-align: center;
+    margin-left: 10px;
+  }
+
+  nav button {
+    width: 43px;
+    height: 42px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: -10px;
+  }
+  nav button:hover {
+    background: transparent;
+    box-shadow: none;
+  }
+  nav button i {
+    font-size: 20px;
+  }
+
+  .icons {
+    margin-bottom: 130px;
+    left: -40px;
+  }
+  .weather .temp {
+    font-size: 75px;
+    margin-top: 0px;
+    margin-bottom: 12px;
+  }
+  .weather .city {
+    font-size: 33px;
+    margin: 0px;
+  }
+
+  .details {
+    margin-top: 33px;
+  }
+  .humidity,
+  .wind {
+    font-size: 20px;
+  }
+}
