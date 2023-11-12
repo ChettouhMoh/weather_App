@@ -385,7 +385,7 @@ nav button i {
   display: none;
 }
 .weather {
-  display: block;
+  display: none;
 }
 
 .error {
