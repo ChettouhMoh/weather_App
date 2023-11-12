@@ -72,19 +72,20 @@ nav button i {
 }
 
 .weather-icon {
-  width: 170px;
-  margin-left: 113px;
-  margin-top: 30px;
+  width: 390px;
+  margin: 60px auto;
   display: flex;
   justify-content: center;
+  flex-direction: column;
+  align-items: center;
 }
 
 .icons {
-  position: relative;
+  display: flex;
 }
 
 .clear {
-  position: inherit;
+  position: relative;
   display: none;
 }
 /* if the weather is clear */
@@ -98,7 +99,7 @@ nav button i {
 
 /* if the weather is cloudy */
 .cloudy {
-  position: inherit;
+  position: relative;
   display: none;
 }
 .cloudy-sun {
@@ -172,7 +173,7 @@ nav button i {
 /* Making Rainny Weather */
 
 .rainning {
-  position: inherit;
+  position: relative;
   display: none;
 }
 .rainy-cloud {
@@ -229,7 +230,7 @@ nav button i {
 
 /* for Snowing weather */
 .snowing {
-  position: inherit;
+  position: relative;
   display: none;
 }
 .snow1,
@@ -274,7 +275,7 @@ nav button i {
 /*     For Drizzle Weather     */
 
 .drizzly {
-  position: inherit;
+  position: relative;
   display: none;
 }
 .dri-cloud {
@@ -341,7 +342,7 @@ nav button i {
 .weather h1 {
   font-size: 80px;
   font-weight: 500;
-  margin-top: 123px;
+  margin-top: 140px;
 }
 .weather h2 {
   font-size: 45px;
@@ -384,7 +385,7 @@ nav button i {
   display: none;
 }
 .weather {
-  display: none;
+  display: block;
 }
 
 .error {
@@ -398,7 +399,14 @@ nav button i {
     margin: 32px auto 23px;
     padding: 40px 12px;
   }
-
+  .weather-icon {
+    width: 96%;
+    /* margin-left: 174px;
+    margin-top: 59px; */
+    margin: 59px auto 0;
+    display: flex;
+    justify-content: center;
+  }
   nav input {
     padding: 7px 15px;
     height: 48px;
@@ -434,7 +442,7 @@ nav button i {
     margin-bottom: 12px;
   }
   .weather .city {
-    font-size: 33px;
+    font-size: 40x;
     margin: 0px;
   }
 
@@ -444,5 +452,20 @@ nav button i {
   .humidity,
   .wind {
     font-size: 20px;
+  }
+  .col:nth-child(1) {
+    margin-left: 30px;
+  }
+  .col:nth-child(2) {
+    margin-right: 30px;
+  }
+}
+
+@media (max-width: 450px) {
+  .col:nth-child(1) {
+    margin-left: 0;
+  }
+  .col:nth-child(2) {
+    margin-right: 0;
   }
 }
