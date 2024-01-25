@@ -45,6 +45,7 @@ nav input {
   flex: 1;
   margin-right: 16px;
   font-size: 18px;
+  text-align: center;
 }
 
 nav button {
@@ -84,7 +85,7 @@ nav button i {
   display: flex;
 }
 
-.clear {
+.Clear {
   position: relative;
   display: none;
 }
@@ -98,7 +99,7 @@ nav button i {
 }
 
 /* if the weather is cloudy */
-.cloudy {
+.Clouds {
   position: relative;
   display: none;
 }
@@ -172,7 +173,7 @@ nav button i {
 
 /* Making Rainny Weather */
 
-.rainning {
+.Rain {
   position: relative;
   display: none;
 }
@@ -229,7 +230,7 @@ nav button i {
 }
 
 /* for Snowing weather */
-.snowing {
+.Snow {
   position: relative;
   display: none;
 }
@@ -274,7 +275,7 @@ nav button i {
 
 /*     For Drizzle Weather     */
 
-.drizzly {
+.Drizzle {
   position: relative;
   display: none;
 }

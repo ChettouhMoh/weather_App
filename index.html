@@ -14,7 +14,7 @@
 
     <div class="card">
         <nav>
-            <input type="text" placeholder="enter city name" spellcheck="false">
+            <input type="text" placeholder="enter city name" spellcheck="false" autofocus>
             <button><i class="fa-solid fa-magnifying-glass"></i></button>
         </nav>
         <div class="empty">Don't let it empty!!</div>
@@ -25,12 +25,12 @@
             <div class="weather-icon">
                 <div class="icons">
                     <!-- for clear Weather  -->
-                    <div class="clear">
+                    <div class="Clear">
                         <i class="fa-solid fa-sun sunny"></i>
                     </div>
 
                     <!-- for clouds -->
-                    <div class="cloudy">
+                    <div class="Clouds weather-div">
                         <i class="fa-solid fa-sun cloudy-sun"></i>
                         <i class="fa-solid fa-cloud cloud1"></i>
                         <i class="fa-solid fa-cloud cloud2"></i>
@@ -38,7 +38,7 @@
                     </div>
 
                     <!-- for rain -->
-                    <div class="rainning" style="display: block">
+                    <div class="Rain weather-div" style="display: block">
                         <i class="fa-solid fa-cloud  rainy-cloud"></i>
                         <i class="fa-solid fa-droplet rain1 display-none"></i> <i
                             class="fa-solid fa-droplet rain2 display-none"></i>
@@ -49,7 +49,7 @@
                     </div>
 
                     <!-- for snow -->
-                    <div class="snowing">
+                    <div class="Snow weather-div">
                         <i class="fa-solid fa-cloud  rainy-cloud"></i>
                         <i class="fa-regular fa-snowflake snow1 display-none"></i>
                         <i class="fa-regular fa-snowflake snow2 display-none"></i>
@@ -59,7 +59,7 @@
                     </div>
 
                     <!-- drizzle rain -->
-                    <div class="drizzly">
+                    <div class="Drizzle weather-div">
                         <i class="fa-solid fa-sun cloudy-sun"></i>
                         <i class="fa-solid fa-cloud dri-cloud "></i>
                         <span class="dri d1"></span>
@@ -103,29 +103,27 @@
 
         const searchBox = document.querySelector("nav input")
         const searchBtn = document.querySelector("nav button")
-        const weatherIcon = document.querySelector(".weather-icon")
+                        const weatherIcon = document.querySelector(".weather-icon");
+                        const error = document.querySelector(".error");
+                        const weather = document.querySelector(".weather");
+                        const empty = document.querySelector(".empty");
+                        const allDivs = document.querySelectorAll('.weather-div');
 
 
+                        async function checkWeather(city) {
+                        const response = await fetch(apiUrl + city + `&appid=${apiKey}`);
+                    
+                        // making all the div's hidden to update the data
+                        error.style.display = "none";
+                        weather.style.display = "none";
+                        empty.style.display = "none"
 
-        async function checkWeather(city) {
-            const response = await fetch(apiUrl + city + `&appid=${apiKey}`)
-
-
-            if (searchBox.value === "") {
-                document.querySelector(".empty").style.display = "block"
-                document.querySelector(".error").style.display = "none";
-                document.querySelector(".weather").style.display = "none";
-            } else if (response.status == 404) {
-                document.querySelector(".error").style.display = "block";
-                document.querySelector(".weather").style.display = "none";
-                document.querySelector(".empty").style.display = "none"
-            } else {
-
-                document.querySelector(".weather").style.display = "block"
-                document.querySelector(".error").style.display = "none";
-                document.querySelector(".empty").style.display = "none"
-
-
+                        if (searchBox.value === "") {
+                        empty.style.display = "block"
+                    } else if (response.status == 404) {
+                        error.style.display = "block";
+                    } else {
+                        weather.style.display = "block"
                 var data = await response.json();
                 console.log(data)
 
@@ -135,91 +133,17 @@
                 document.querySelector(".humidity").innerHTML = `${Math.round(data.main.humidity)}%`;
                 document.querySelector(".wind").innerHTML = `${Math.round(data.wind.speed)} Km/h`;
 
-                // weather icon manipulation
-                // ---------------------------------------------------------------------------------------
-                function getWeatherCondition() {
-                    // Replace this with your actual API call logic
-                    // For now, let's return a random condition
-                    const conditions = ['clear', 'cloudy', 'raining', 'snowing', 'drizzly'];
-                    return conditions[Math.floor(Math.random() * conditions.length)];
-                }
-
+                        // to update the animation based on r=the weather
                 function updateWeatherDisplay() {
-                    const condition = getWeatherCondition();
-                    const allDivs = document.querySelectorAll('.weather-div');
-
-                    // Hide all divs
-                    allDivs.forEach(div => {
-                        div.style.display = 'none';
-                    });
-
-                    // Show the specific div based on the condition
-                    document.querySelector(`.${condition}`).style.display = 'block';
+                    const condition1 = data.weather[0].main;
+                    allDivs.forEach(div => div.style.display = 'none')
+                    if (condition1 == 'Mist') {
+                        document.querySelector(`.Clouds`).style.display = 'block';
+                    } else {
+                        document.querySelector(`.${condition1}`).style.display = 'block';
+                    }
                 }
-
-
-
-                //-----------------------------------------------------------------------------------------------------------------------------
-
-
-
-
-
-                if (data.weather[0].main === 'Clouds') {
-
-                    document.querySelector(".clear").style.display = "none"
-                    document.querySelector(".rainning").style.display = "none"
-                    document.querySelector(".snowing").style.display = "none"
-                    document.querySelector(".drizzly").style.display = "none"
-                    document.querySelector(".cloudy").style.display = "block"
-
-                } else if (data.weather[0].main === 'Clear') {
-
-                    document.querySelector(".rainning").style.display = "none"
-                    document.querySelector(".snowing").style.display = "none"
-                    document.querySelector(".drizzly").style.display = "none"
-                    document.querySelector(".cloudy").style.display = "none"
-                    document.querySelector(".clear").style.display = "block"
-
-
-                } else if (data.weather[0].main === 'Rain') {
-
-
-                    document.querySelector(".clear").style.display = "none"
-                    document.querySelector(".snowing").style.display = "none"
-                    document.querySelector(".drizzly").style.display = "none"
-                    document.querySelector(".cloudy").style.display = "none"
-                    document.querySelector(".rainning").style.display = "block"
-
-
-
-
-                } else if (data.weather[0].main === 'Drizzle') {
-
-                    document.querySelector(".clear").style.display = "none"
-                    document.querySelector(".rainning").style.display = "none"
-                    document.querySelector(".snowing").style.display = "none"
-                    document.querySelector(".cloudy").style.display = "none"
-                    document.querySelector(".drizzly").style.display = "block"
-
-                } else if (data.weather[0].main === 'Mist') {
-
-                    document.querySelector(".clear").style.display = "none"
-                    document.querySelector(".rainning").style.display = "none"
-                    document.querySelector(".snowing").style.display = "none"
-                    document.querySelector(".drizzly").style.display = "none"
-                    document.querySelector(".cloudy").style.display = "block"
-
-                } else if (data.weather[0].main === 'Snow') {
-                    document.querySelector(".clear").style.display = "none"
-                    document.querySelector(".rainning").style.display = "none"
-                    document.querySelector(".drizzly").style.display = "none"
-                    document.querySelector(".cloudy").style.display = "none"
-                    document.querySelector(".snowing").style.display = "block"
-
-
-                }
-
+                        updateWeatherDisplay()
             }
         }
 
